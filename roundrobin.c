@@ -146,8 +146,8 @@ main()
     	printf("\n\t\tWaiting time:%d\n",s[z].wtime);
     	printf("\n\t\tTurnAroundTime:%d\n",s[z].tatime);
     }
-    int cpur;
-    cpur=((t-p_idle.btime)/t)*100;
+    float cpur;
+    cpur=(float)((t-p_idle.btime)/t)*100;
     printf("\nCPU Utilisation rate is:");
     printf("%d",cpur);
 }
