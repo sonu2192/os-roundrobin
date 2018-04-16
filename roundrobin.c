@@ -28,7 +28,7 @@ int g1=0;
 main()
 {
 	p_idle.atime=0;
-	p_idle.btime=10000;
+	p_idle.btime=0;
 	p_idle.id=0;
 	p_idle.pri=0;
 	p_idle.rtime=p_idle.btime;
@@ -80,6 +80,7 @@ main()
 	   	w1[g1].ids=p_idle.id;
 	   	w1[g1].t=t;
 	   	//printf("P%d  ",p_idle.id);
+	   	p_idle.btime++;
 	   }
 	   else
 	   {
@@ -139,10 +140,14 @@ main()
     int z;
     for(z=0;z<n;z++)
     {
-    	printf("\n\t\tProcess P%d:\n",s[z].id);
+    	printf("\nProcess P%d:\n",s[z].id);
     	s[z].wtime=s[z].ctime-s[z].btime-s[z].atime;
     	s[z].tatime=s[z].wtime+s[z].btime;
-    	printf("\nWaiting time:%d\n",s[z].wtime);
-    	printf("\nTurnAroundTime:%d\n",s[z].tatime);
+    	printf("\n\t\tWaiting time:%d\n",s[z].wtime);
+    	printf("\n\t\tTurnAroundTime:%d\n",s[z].tatime);
     }
+    int cpur;
+    cpur=((t-p_idle.btime)/t)*100;
+    printf("\nCPU Utilisation rate is:");
+    printf("%d",cpur);
 }
