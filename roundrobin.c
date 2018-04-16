@@ -12,13 +12,19 @@ struct process
 	int exe;
 	int ctime;
 }s[10];
+struct gant
+{
+	int t;
+	int ids;
+}w1[200];
 struct process readyq[10];
 struct process p_idle;
-int t=0,rem,n;
+int t=0,rem,g=0,n;
 struct process temp;
 struct process temp1;
 struct process protemp;
 struct process protemp1;
+int g1=0;
 main()
 {
 	p_idle.atime=0;
@@ -27,9 +33,11 @@ main()
 	p_idle.pri=0;
 	p_idle.rtime=p_idle.btime;
 	readyq[0]=p_idle;
-	int u,i,j,k,l,o,m,size=0,quant=10,istart=0;
+	int u,i,j,k,l,o,m,size=0,quant,istart=0;
 	printf("\nEnter the Total number of process:");
 	scanf("%d",&n);
+	printf("\nEnter the time quantum:");
+	scanf("%d",&quant);
 	rem=n;
 	for(i=0;i<n;i++)
 	{
@@ -53,10 +61,9 @@ main()
 	 		readyq[size]=s[i];
 	 		s[i].exe=1;
 	 		size++;
-		 }
-		 for(j=0;j<size-1;j++)
-		 {
-		 	for(k=0;k<j-size-1;k++)
+	 		for(j=0;j<size-1;j++)
+		   {
+		    for(k=0;k<size-j-1;k++)
 		 	{
 		 		if(readyq[k].pri<readyq[k+1].pri)
 		 		{
@@ -65,15 +72,18 @@ main()
 		 			readyq[k+1]=temp;
 				}
 			}
+		   }
 		 }
 	   }
 	   if(t>0&&size==0)
 	   {
-	   	printf("P%d  ",p_idle.id);
+	   	w1[g1].ids=p_idle.id;
+	   	w1[g1].t=t;
+	   	//printf("P%d  ",p_idle.id);
 	   }
 	   else
 	   {
-	    if(t%10==0&&readyq[1].rtime!=0)
+	    if(t%quant==0&&readyq[1].rtime!=0&&t!=0)
 	    {
 	    	protemp=readyq[0];
 	    	int p;
@@ -85,8 +95,11 @@ main()
 	    }
 	     if(readyq[0].rtime!=0)
 		 {
-		 	printf("P%d  ",readyq[0].id);
+		 	w1[g1].ids=readyq[0].id;
+		 	w1[g1].t=t;
+		 	//printf("P%d  ",readyq[0].id);
 		 	readyq[0].rtime--;
+		 	g1++;
 		 }
 		 if(readyq[0].rtime==0&&t!=0)
 		 {
@@ -110,9 +123,23 @@ main()
 	}
 		 t++;
     }
+    int i1;
+    int j1;
+    	i1=0;
+    	for(j1=0;j1<g1;j1++)
+    	{
+    		if(w1[i1].ids!=w1[j1].ids)
+    		{
+    			printf("%d\t",w1[i1].t);
+    			printf("P%d ",w1[i1].ids);
+    			i1=j1;
+			}
+		}
+		printf("%d",t);
     int z;
     for(z=0;z<n;z++)
     {
+    	printf("\n\t\tProcess P%d:\n",s[z].id);
     	s[z].wtime=s[z].ctime-s[z].btime-s[z].atime;
     	s[z].tatime=s[z].wtime+s[z].btime;
     	printf("\nWaiting time:%d\n",s[z].wtime);
