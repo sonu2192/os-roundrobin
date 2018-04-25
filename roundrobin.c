@@ -148,8 +148,9 @@ main()
     	printf("\n\t\tTurnAroundTime:%d\n",s[z].tatime);
     }
     float cpur;
-	int jk=p_idle.btime;
-    cpur=(float)((t-jk)/t)*100;
+    float time=(float)t;
+    float jk=(float)p_idle.btime;
+    cpur=((time-jk)/time*100);
     printf("\nCPU Utilisation rate is:");
     printf("%f",cpur);
 }
