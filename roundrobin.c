@@ -51,7 +51,7 @@ main()
 		scanf("%d",&s[i].pri);
 		s[i].exe=0;
 	}
-	 printf("\nGanttChart for every second is:");
+	 printf("\nGanttChart:");
 	 while(rem!=0)
 	 {
 	 	for(i=0;i<n;i++)
@@ -81,6 +81,7 @@ main()
 	   	w1[g1].t=t;
 	   	//printf("P%d  ",p_idle.id);
 	   	p_idle.btime++;
+		g1++;
 	   }
 	   else
 	   {
