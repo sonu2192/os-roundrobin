@@ -137,6 +137,8 @@ main()
     			i1=j1;
 			}
 		}
+		printf("%d\t",w1[i1].t);
+    	printf("P%d ",w1[i1].ids);
 		printf("%d",t);
     int z;
     for(z=0;z<n;z++)
